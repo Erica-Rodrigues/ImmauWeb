@@ -63,4 +63,17 @@ class Photo
 
         return $this;
     }
+
+        /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'nom' => $this->getUrlPhoto(),
+            'user' => $this->getUser(),
+            'bien' => $this->getBien()
+        ];
+    }
 }

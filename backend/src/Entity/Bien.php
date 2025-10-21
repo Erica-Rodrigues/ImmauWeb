@@ -270,4 +270,27 @@ class Bien
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'nom' => $this->getNom(),
+            'typeDeBien' => $this->getTypeDeBien(),
+            'prix' => $this->getPrix(),
+            'surface' => $this->getSurface(),
+            'nbChambre' => $this->getNbChambre(),
+            'rue' => $this->getRue(),
+            'description' => $this->getDescription(),
+            'disponibilite' => $this->getDisponibilite()->format('d-m-Y'),
+            'statut' => $this->getStatut(),
+            'datePublication' => $this->getDatePublication()->format('d-m-Y'),
+            'user' => $this->getUser(),
+            'photos' => $this->getPhotos(),
+            'contacts' => $this->getContacts()
+        ];
+    }
 }

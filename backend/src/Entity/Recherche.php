@@ -84,4 +84,19 @@ class Recherche
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'nom' => $this->getNomRecherche(),
+            'user' => $this->getUser(),
+            'criteres' => $this->getCritere(),
+            'dateCreation' => $this-> getDateCreation()->format('d-m-Y'),
+            'alerte' => $this->isAlerte()
+        ];
+    }
 }

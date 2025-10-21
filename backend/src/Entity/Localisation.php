@@ -158,4 +158,20 @@ class Localisation
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'nomLocalite' => $this->getNomLocalite(),
+            'codePostal' => $this->getCodePostal(),
+            'ville' => $this->getVille(),
+            'pays' => $this->getPays(),
+            'bien' => $this->getBien(),
+            'critere' => $this->getCritere()
+        ];
+    }
 }

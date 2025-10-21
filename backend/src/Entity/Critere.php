@@ -181,4 +181,23 @@ class Critere
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'typeTransaction' => $this->getTypeTransaction(),
+            'typeBien' => $this->getTypeBien(),
+            'prixMin' => $this->getPrixMin(),
+            'prixMax' => $this->getPrixMax(),
+            'surfaceMin' => $this->getSurfaceMin(),
+            'surfaceMax' => $this->getSurfaceMax(),
+            'nbChambre' => $this->getNbChambres(),
+            'localisation' => $this->getLocalisation(),
+            'recherche' => $this->getRecherches()
+        ];
+    }
 }

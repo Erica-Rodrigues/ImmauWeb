@@ -128,4 +128,22 @@ class Contact
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return[
+            'id' => $this->getId(),
+            'nom' => $this->getNom(),
+            'email' => $this->getEmail(),
+            'sujet' => $this->getSujet(),
+            'message' => $this->getMessage(),
+            'isTraite' => $this->isTraite(),
+            'dateEnvoie' => $this->getDateEnvoi()->format('d-m-Y'),
+            'user' => $this->getUser(),
+            'bien' => $this->getBien()
+        ];
+    }
 }
