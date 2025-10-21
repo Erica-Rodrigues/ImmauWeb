@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Entity\Traits\Timestampable;
 use App\Repository\RechercheRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: RechercheRepository::class)]
 #[ORM\Table(name: "recherches")]
 #[ORM\HasLifecycleCallbacks]
+#[ApiResource()]
 class Recherche
 {
     #[ORM\Id]
