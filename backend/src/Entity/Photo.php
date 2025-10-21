@@ -17,6 +17,12 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $urlPhoto = null;
 
+    #[ORM\OneToOne(inversedBy: 'photo', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'photos')]
+    private ?Bien $bien = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +36,30 @@ class Photo
     public function setUrlPhoto(string $urlPhoto): static
     {
         $this->urlPhoto = $urlPhoto;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBien(): ?Bien
+    {
+        return $this->bien;
+    }
+
+    public function setBien(?Bien $bien): static
+    {
+        $this->bien = $bien;
 
         return $this;
     }

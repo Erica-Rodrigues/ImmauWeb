@@ -33,6 +33,12 @@ class Contact
     #[ORM\Column]
     private ?bool $traite = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    private ?Bien $bien = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +112,30 @@ class Contact
     public function setTraite(bool $traite): static
     {
         $this->traite = $traite;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBien(): ?Bien
+    {
+        return $this->bien;
+    }
+
+    public function setBien(?Bien $bien): static
+    {
+        $this->bien = $bien;
 
         return $this;
     }

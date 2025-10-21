@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocalisationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocalisationRepository::class)]
@@ -25,6 +27,24 @@ class Localisation
 
     #[ORM\Column(length: 255)]
     private ?string $pays = null;
+
+    /**
+     * @var Collection<int, Bien>
+     */
+    #[ORM\OneToMany(targetEntity: Bien::class, mappedBy: 'localisation', orphanRemoval: true)]
+    private Collection $bien;
+
+    /**
+     * @var Collection<int, Critere>
+     */
+    #[ORM\OneToMany(targetEntity: Critere::class, mappedBy: 'localisation')]
+    private Collection $critere;
+
+    public function __construct()
+    {
+        $this->bien = new ArrayCollection();
+        $this->critere = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +95,66 @@ class Localisation
     public function setPays(string $pays): static
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bien>
+     */
+    public function getBien(): Collection
+    {
+        return $this->bien;
+    }
+
+    public function addBien(Bien $bien): static
+    {
+        if (!$this->bien->contains($bien)) {
+            $this->bien->add($bien);
+            $bien->setLocalisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBien(Bien $bien): static
+    {
+        if ($this->bien->removeElement($bien)) {
+            // set the owning side to null (unless already changed)
+            if ($bien->getLocalisation() === $this) {
+                $bien->setLocalisation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Critere>
+     */
+    public function getCritere(): Collection
+    {
+        return $this->critere;
+    }
+
+    public function addCritere(Critere $critere): static
+    {
+        if (!$this->critere->contains($critere)) {
+            $this->critere->add($critere);
+            $critere->setLocalisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritere(Critere $critere): static
+    {
+        if ($this->critere->removeElement($critere)) {
+            // set the owning side to null (unless already changed)
+            if ($critere->getLocalisation() === $this) {
+                $critere->setLocalisation(null);
+            }
+        }
 
         return $this;
     }

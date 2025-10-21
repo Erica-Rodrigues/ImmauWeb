@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CritereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CritereRepository::class)]
@@ -34,6 +36,20 @@ class Critere
 
     #[ORM\Column(nullable: true)]
     private ?int $nbChambres = null;
+
+    #[ORM\ManyToOne(inversedBy: 'critere')]
+    private ?Localisation $localisation = null;
+
+    /**
+     * @var Collection<int, Recherche>
+     */
+    #[ORM\OneToMany(targetEntity: Recherche::class, mappedBy: 'critere', orphanRemoval: true)]
+    private Collection $recherches;
+
+    public function __construct()
+    {
+        $this->recherches = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +136,48 @@ class Critere
     public function setNbChambres(?int $nbChambres): static
     {
         $this->nbChambres = $nbChambres;
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisation
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(?Localisation $localisation): static
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recherche>
+     */
+    public function getRecherches(): Collection
+    {
+        return $this->recherches;
+    }
+
+    public function addRecherch(Recherche $recherch): static
+    {
+        if (!$this->recherches->contains($recherch)) {
+            $this->recherches->add($recherch);
+            $recherch->setCritere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecherch(Recherche $recherch): static
+    {
+        if ($this->recherches->removeElement($recherch)) {
+            // set the owning side to null (unless already changed)
+            if ($recherch->getCritere() === $this) {
+                $recherch->setCritere(null);
+            }
+        }
 
         return $this;
     }

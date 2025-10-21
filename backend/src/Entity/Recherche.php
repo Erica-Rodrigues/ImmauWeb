@@ -23,6 +23,14 @@ class Recherche
     #[ORM\Column]
     private ?bool $alerte = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recherches')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recherches')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Critere $critere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +68,30 @@ class Recherche
     public function setAlerte(bool $alerte): static
     {
         $this->alerte = $alerte;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCritere(): ?Critere
+    {
+        return $this->critere;
+    }
+
+    public function setCritere(?Critere $critere): static
+    {
+        $this->critere = $critere;
 
         return $this;
     }

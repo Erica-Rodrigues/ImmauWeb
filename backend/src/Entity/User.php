@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +45,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $dateCreation = null;
+
+    /**
+     * @var Collection<int, Bien>
+     */
+    #[ORM\OneToMany(targetEntity: Bien::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $biens;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Photo $photo = null;
+
+    /**
+     * @var Collection<int, Recherche>
+     */
+    #[ORM\OneToMany(targetEntity: Recherche::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $recherches;
+
+    /**
+     * @var Collection<int, Contact>
+     */
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user')]
+    private Collection $contacts;
+
+    public function __construct()
+    {
+        $this->biens = new ArrayCollection();
+        $this->recherches = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -169,6 +199,113 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateCreation(\DateTimeImmutable $dateCreation): static
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bien>
+     */
+    public function getBiens(): Collection
+    {
+        return $this->biens;
+    }
+
+    public function addBien(Bien $bien): static
+    {
+        if (!$this->biens->contains($bien)) {
+            $this->biens->add($bien);
+            $bien->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBien(Bien $bien): static
+    {
+        if ($this->biens->removeElement($bien)) {
+            // set the owning side to null (unless already changed)
+            if ($bien->getUser() === $this) {
+                $bien->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(Photo $photo): static
+    {
+        // set the owning side of the relation if necessary
+        if ($photo->getUser() !== $this) {
+            $photo->setUser($this);
+        }
+
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recherche>
+     */
+    public function getRecherches(): Collection
+    {
+        return $this->recherches;
+    }
+
+    public function addRecherch(Recherche $recherch): static
+    {
+        if (!$this->recherches->contains($recherch)) {
+            $this->recherches->add($recherch);
+            $recherch->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecherch(Recherche $recherch): static
+    {
+        if ($this->recherches->removeElement($recherch)) {
+            // set the owning side to null (unless already changed)
+            if ($recherch->getUser() === $this) {
+                $recherch->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getUser() === $this) {
+                $contact->setUser(null);
+            }
+        }
 
         return $this;
     }
