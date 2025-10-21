@@ -45,9 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $dateCreation = null;
-
     /**
      * @var Collection<int, Bien>
      */

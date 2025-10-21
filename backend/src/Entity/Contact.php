@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Sendable;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ORM\Table(name: "contacts")]
+#[ORM\HasLifecycleCallbacks]
 class Contact
 {
     #[ORM\Id]
@@ -27,8 +29,7 @@ class Contact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $dateEnvoi = null;
+    use Sendable;
 
     #[ORM\Column]
     private ?bool $traite = null;
@@ -88,18 +89,6 @@ class Contact
     public function setMessage(string $message): static
     {
         $this->message = $message;
-
-        return $this;
-    }
-
-    public function getDateEnvoi(): ?\DateTimeImmutable
-    {
-        return $this->dateEnvoi;
-    }
-
-    public function setDateEnvoi(\DateTimeImmutable $dateEnvoi): static
-    {
-        $this->dateEnvoi = $dateEnvoi;
 
         return $this;
     }

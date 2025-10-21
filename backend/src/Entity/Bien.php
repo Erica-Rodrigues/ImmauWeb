@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Publishable;
 use App\Repository\BienRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BienRepository::class)]
 #[ORM\Table(name: "biens")]
+#[ORM\HasLifecycleCallbacks]
 class Bien
 {
     #[ORM\Id]
@@ -44,8 +46,7 @@ class Bien
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $datePublication = null;
+    use Publishable;
 
     #[ORM\ManyToOne(inversedBy: 'biens')]
     #[ORM\JoinColumn(nullable: false)]
@@ -182,18 +183,6 @@ class Bien
     public function setStatut(string $statut): static
     {
         $this->statut = $statut;
-
-        return $this;
-    }
-
-    public function getDatePublication(): ?\DateTimeImmutable
-    {
-        return $this->datePublication;
-    }
-
-    public function setDatePublication(\DateTimeImmutable $datePublication): static
-    {
-        $this->datePublication = $datePublication;
 
         return $this;
     }

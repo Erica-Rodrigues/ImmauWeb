@@ -4,6 +4,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Timestampable
 {
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dateCreation = null;
 
     public function getDateCreation(): ?\DateTimeImmutable
     {

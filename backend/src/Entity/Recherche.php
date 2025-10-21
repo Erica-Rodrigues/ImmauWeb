@@ -20,9 +20,6 @@ class Recherche
     private ?string $nomRecherche = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $dateCreation = null;
-
-    #[ORM\Column]
     private ?bool $alerte = null;
 
     #[ORM\ManyToOne(inversedBy: 'recherches')]
