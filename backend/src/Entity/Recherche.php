@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\RechercheRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RechercheRepository::class)]
 #[ORM\Table(name: "recherches")]
+#[ORM\HasLifecycleCallbacks]
 class Recherche
 {
     #[ORM\Id]
@@ -48,17 +50,7 @@ class Recherche
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeImmutable
-    {
-        return $this->dateCreation;
-    }
-
-    public function setDateCreation(\DateTimeImmutable $dateCreation): static
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
+    use Timestampable;
 
     public function isAlerte(): ?bool
     {
