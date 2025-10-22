@@ -1,0 +1,25 @@
+.logo{
+    width: 60px;
+    height: 40px;
+}
+
+
+/* tablet */
+@media screen and (min-width: 768px){
+    .logo{
+        width: 80px;
+        height: 60px;
+    }
+}
+
+/* desktop */
+@media screen and (min-width: 1025px){
+    .nav-centered{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -45%);
+        display: flex;
+        align-items: center;
+    }
+}
