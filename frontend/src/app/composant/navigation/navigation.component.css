@@ -4,6 +4,18 @@
 }
 
 
+.inscription{
+    background-color: #2F2F2F;
+    border-radius: 50px;
+    text-align: center;
+    width: 100px;
+}
+
+.inscription > a{
+    color: #E8E9E3;
+}
+
+
 /* tablet */
 @media screen and (min-width: 768px){
     .logo{
@@ -22,4 +34,6 @@
         display: flex;
         align-items: center;
     }
+
+
 }
