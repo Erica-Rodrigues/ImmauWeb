@@ -1,0 +1,19 @@
+.logo{
+    width: 100px;
+    height: 80px;
+    display: block;
+    margin: 1rem auto;
+}
+
+a{
+    color: #2F2F2F;
+}
+
+a:hover{
+    color: #C86428;
+}
+
+.footer__icons i {
+    font-size: 28px; 
+    color: #2F2F2F;
+}
