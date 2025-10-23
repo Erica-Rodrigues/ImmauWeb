@@ -63,7 +63,7 @@ class Bien
     /**
      * @var Collection<int, Photo>
      */
-    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'bien')]
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'bien',orphanRemoval: true)]
     private Collection $photos;
 
     #[ORM\ManyToOne(inversedBy: 'bien')]
