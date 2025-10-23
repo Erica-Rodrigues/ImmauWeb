@@ -16,10 +16,10 @@ class Photo
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     private ?string $urlPhoto = null;
 
-    #[ORM\OneToOne(inversedBy: 'photo', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'photo')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'photos')]
