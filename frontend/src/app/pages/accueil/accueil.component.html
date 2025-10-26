@@ -28,3 +28,10 @@
         </div>
     </div>
 </section>
+<section class="annoncesRécentes">
+    <ul>
+        <li *ngFor="let bien of biens">
+            {{bien.nom}} - {{bien.typeDeBien}} 
+        </li>
+    </ul>
+</section>
