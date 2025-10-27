@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Bien, BienService } from '../../services/bien.service';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })

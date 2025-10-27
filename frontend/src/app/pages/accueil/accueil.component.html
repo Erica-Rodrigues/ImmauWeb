@@ -32,7 +32,7 @@
     <div class="container__cartes" *ngFor="let bien of biens">
         <div class="carte">
             <div class="carte__img">
-                <img src="/pexels-pixasquare-1115804.jpg" alt="image du bien" class="img__bien">
+                <img  [src]="bien.photos?.[0]?.urlPhoto" alt="`image du bien ${bien.nom}`" class="img__bien">
                 <div class="type__bien">
                     {{bien.typeDeBien}}
                 </div>
