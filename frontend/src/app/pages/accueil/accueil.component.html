@@ -29,9 +29,28 @@
     </div>
 </section>
 <section class="annoncesRécentes">
-    <ul>
-        <li *ngFor="let bien of biens">
-            {{bien.nom}} - {{bien.typeDeBien}} 
-        </li>
-    </ul>
+    <div class="container__cartes" *ngFor="let bien of biens">
+        <div class="carte">
+            <div class="carte__img">
+                <img src="/pexels-pixasquare-1115804.jpg" alt="image du bien" class="img__bien">
+                <div class="type__bien">
+                    {{bien.typeDeBien}}
+                </div>
+            </div>
+            <div class="carte__info">
+                <p>{{bien.nom}}</p>
+                <div class="info__details">
+                    <p>
+                        <img src="/bed.png" alt="bedIcon">
+                        {{ bien.nbChambre }}
+                    </p>
+                    <p>
+                        <img src="/arrows.png" alt="arrows pointing out">
+                        {{ bien.surface }}
+                    </p>
+                </div>
+                <p>{{ bien.prix }}€</p>
+            </div>
+        </div>
+    </div>
 </section>

@@ -97,6 +97,75 @@
     cursor: pointer;
 }
 
+.annoncesRécentes{
+    width: 100%;
+    height: 100vh;
+    background-color: #2F2F2F;
+    overflow: hidden;
+}
+
+.container__cartes{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    gap: 2rem;
+    flex-wrap: nowrap;
+}
+
+.carte{
+    width: 80%;
+    height: auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.carte:hover{
+    transform: translateY(-5px);
+}
+
+.carte__img{
+    width: 100%;
+    position: relative;
+}
+
+.img__bien{
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
+}
+
+.type__bien{
+    position: absolute;
+    top: 10px;    /* distance du haut */
+    left: 10px;   /* distance de la gauche */
+    background-color: rgba(0, 0, 0, 0.6); /* fond semi-transparent pour la lisibilité */
+    color: white;  /* texte blanc */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.carte__info{
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: #2F2F2F;
+}
+
+.info__details{
+    display: flex;
+    justify-content: space-around;
+}
+
 
 /* tablet */
 @media screen and (min-width: 768px){
@@ -141,6 +210,16 @@
     .recherchebtn {
         font-size: 2rem;
     }
+    
+    .carte{
+        width: 45%;
+        height: auto;
+    }
+
+    .carte__info{
+        font-size: 1.5rem;
+    }
+    
 }
 
 
@@ -173,6 +252,19 @@
     .barreRecherche input {
         padding: 10px;
         font-size: 1rem;
+    }
+
+    .container__cartes{
+        gap: 2.5rem;
+    }
+
+    .carte{
+        width: 30%;
+        height: auto;
+    }
+
+    .carte__info{
+        font-size: 1.5rem;
     }
 }
 

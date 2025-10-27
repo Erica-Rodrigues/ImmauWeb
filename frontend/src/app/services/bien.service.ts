@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { Photo, PhotoService } from './photo.service';
 
 export interface Bien {
   id?: number;
@@ -16,7 +17,7 @@ export interface Bien {
   datePublication?: string;
   user?: string | number;
   localisation: string | number;
-  photos?: string[] | number[];
+  photos?: Photo[];
 }
 
 @Injectable({
@@ -25,7 +26,7 @@ export interface Bien {
 export class BienService {
   private api = 'https://127.0.0.1:8000/api/biens';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private photoService: PhotoService) { }
 
   getBiens():Observable<Bien[]>{
     // angular envoie une requete HTTP GET à mon URL stoker dans api
@@ -52,7 +53,18 @@ export class BienService {
     // ]
 
     return this.http.get<any>(this.api).pipe(
-      map(response => response['member'])
+      map(response => response['member']),
+      switchMap((biens: Bien[]) => {
+        const biensAvecPhotos$ = biens.map(bien => 
+          this.photoService.getPhotosByBienId(bien.id!).pipe(
+            map(photos => ({
+              ...bien,
+              photos
+            }))
+          )
+        );
+        return forkJoin(biensAvecPhotos$);
+      })
     );
   }
 }

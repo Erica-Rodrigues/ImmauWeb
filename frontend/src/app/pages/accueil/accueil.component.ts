@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Bien, BienService } from '../../services/bien.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })
@@ -16,8 +16,8 @@ export class AccueilComponent implements OnInit {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.bienService.getBiens().subscribe(res => {
-      console.log('Réponse API :', res);
-      this.biens = res});
+    this.bienService.getBiens().subscribe(biens => {
+      console.log('Réponse API :', biens);
+      this.biens = biens});
   }
 }
