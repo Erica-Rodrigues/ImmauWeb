@@ -93,7 +93,7 @@ final class BienController extends AbstractController
             'datePublication' => $bien->getDatePublication()->format('Y-m-d'),
             'user' => $user->getId(),
             'localisation' => $localisation->getId(),
-            'photos' => array_map(fn(Photo $p) => $p->getId(), $bien->getPhotos()->toArray())
+            'photos' => array_map(fn(Photo $p) => $p->getUrlPhoto(), $bien->getPhotos()->toArray())
             // $bien->getPhotos()->toArray() 
             //récupère la collection de photos appartenant au bien et toArray transforme la collection en bien
             //array_map(fn(Photo $p) => $p->getId()
@@ -170,7 +170,7 @@ final class BienController extends AbstractController
                 'datePublication' => $bien->getDatePublication()->format('Y-m-d'),
                 'user' => $user->getId(),
                 'localisation' => $bien->getLocalisation()->getId(),
-                'photos' => array_map(fn(Photo $p) => $p->getId(), $bien->getPhotos()->toArray())
+                'photos' => array_map(fn(Photo $p) => $p->getUrlPhoto(), $bien->getPhotos()->toArray())
             ]
         ], 200);
     }
