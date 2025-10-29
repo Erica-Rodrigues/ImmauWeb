@@ -50,6 +50,12 @@ h3{
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.mdpOublie{
+  color: #E8E9E3;
+  text-decoration: none;
+  align-self: center;
+}
+
 /* Bouton */
 .login__form button {
   width: 100%;
