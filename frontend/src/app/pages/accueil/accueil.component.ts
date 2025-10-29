@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Bien, BienService } from '../../services/bien.service';
 import { CommonModule} from '@angular/common';
+import { SliderComponent } from '../../composant/slider/slider.component';
 
 @Component({
   selector: 'app-accueil',
-  imports: [CommonModule],
+  imports: [CommonModule, SliderComponent],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })

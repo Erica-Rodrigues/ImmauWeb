@@ -1,0 +1,33 @@
+<div class="slider-container">
+    <!-- Liste des cartes -->
+    <div class="slider" #slider>
+      <div class="carte" *ngFor="let bien of biens">
+        <div class="carte__img">
+          <img [src]="bien.photos?.[0]?.urlPhoto" alt="Image du bien {{bien.nom}}" class="img__bien">
+          <div class="type__bien">{{ bien.typeDeBien }}</div>
+        </div>
+        <div class="carte__info">
+          <p>{{ bien.nom }}</p>
+          <div class="info__details">
+            <p><img src="/bed.png" alt="chambres"> {{ bien.nbChambre }}</p>
+            <p><img src="/arrows.png" alt="surface"> {{ bien.surface }}</p>
+          </div>
+          <p>{{ bien.prix }} €</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="controls">
+      <button class="nav prev" (click)="prevSlide()">&#10094;</button>
+  
+      <div class="pagination">
+        <!-- création d'un tableau avec les emplacement nécessaire pour les indicateurs de pagination -->
+        <span *ngFor="let slide of [].constructor(totalSlides); let i = index"
+              [class.active]="i === currentIndex"
+              (click)="goToSlide(i)"></span>
+      </div>
+  
+      <button class="nav next" (click)="nextSlide()">&#10095;</button>
+    </div>
+</div>
+  

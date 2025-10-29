@@ -16,7 +16,7 @@ export class PhotoService {
   constructor(private http: HttpClient) { }
 
   getPhotosByBienId(bienId: number): Observable<Photo[]>{
-    return this.http.get<any>(`${this.api}/api/photos?bien=${bienId}`).pipe(
+    return this.http.get<any>(`${this.api}/api/photos?bien.id=${bienId}`).pipe(
       map(response => response['member'])
     );
   }

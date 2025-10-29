@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use App\Entity\Traits\Updatable;
@@ -12,6 +14,7 @@ use App\Entity\Traits\Updatable;
 #[ORM\Entity(repositoryClass: PhotoRepository::class)]
 #[ORM\Table(name: "photos")]
 #[ApiResource()]
+#[ApiFilter(SearchFilter::class, properties: ['bien.id' => 'exact'])]
 #[Vich\Uploadable]
 class Photo
 {
