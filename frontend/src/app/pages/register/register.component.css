@@ -1,0 +1,111 @@
+/* Container principal */
+.container__inscription {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2F2F2F;
+    margin: 0;
+  }
+  
+  /* Formulaire */
+  .inscription__form {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  h3{
+    color: #E8E9E3;
+    align-self: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  /* Inputs */
+  .inscription__form input, .inscription__form select{
+    width: 100%;
+    padding: 1rem;
+    background-color: #E8E9E3;
+    color: #2F2F2F;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  
+  /* Style des options */
+  .inscription__form select option {
+    background-color: #E8E9E3;
+    color: #2F2F2F;
+    padding: 0.5rem;
+  }
+  
+  
+  
+  /* Bouton */
+  .inscription__form button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #E8E9E3;
+    color: #2F2F2F;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .inscription__form button:hover {
+    background-color: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .inscription__form button:active {
+    transform: translateY(0);
+  }
+  
+  .inscription__form button:disabled {
+    background-color: rgba(47, 47, 47, 0.5);
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Tablette (min-width: 768px) */
+  @media (min-width: 768px) {
+    .inscription__form {
+      padding: 2.5rem;
+      gap: 2rem;
+      background-color: #C86428;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+  
+    .inscription__form input,
+    .inscription__form button {
+      padding: 1.25rem;
+      font-size: 1.1rem;
+    }
+  }
+  
+  /* Desktop (min-width: 1024px) */
+  @media (min-width: 1024px) {
+    .inscription__form {
+      max-width: 450px;
+      padding: 3rem;
+    }
+  
+    .inscription__form input:hover {
+      background-color: #f0f1ec;
+    }
+  }
