@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { Photo, PhotoService } from './photo.service';
+import { Localisation, LocalisationService } from './localisation.service';
 
 export interface Bien {
   id?: number;
@@ -16,7 +17,7 @@ export interface Bien {
   statut: string;
   datePublication?: string;
   user?: string | number;
-  localisation: string | number;
+  localisation: Localisation | string;
   photos?: Photo[];
 }
 
@@ -26,7 +27,7 @@ export interface Bien {
 export class BienService {
   private api = 'https://127.0.0.1:8000/api/biens';
 
-  constructor(private http: HttpClient, private photoService: PhotoService) { }
+  constructor(private http: HttpClient, private photoService: PhotoService, private localisationService: LocalisationService) { }
 
   getBiens():Observable<Bien[]>{
     // angular envoie une requete HTTP GET à mon URL stoker dans api
@@ -82,23 +83,35 @@ export class BienService {
       map(response => response['member']),
       map((biens: Bien[]) => biens.filter(bien => bien.statut === 'location')),
       switchMap((biens: Bien[]) => {
-        // création d'un tableau d'Observables
-        // $ indique un tableau d'Observables
-        const biensAvecPhotos$ = biens.map(bien => 
-          // this.photoService.getPhotosByBienId(bien.id!) pour chaque bien on crée un Observable qui va récupérer ses photos
-          // ! -> indique que id n'est jamais null
-          this.photoService.getPhotosByBienId(bien.id!).pipe(
-            map(photos => ({
-              // copie toutes les propriétés du bien
-              ...bien,
-              //ajoute le tableau de photos récupéré
-              photos
+        // on parcourt chaque bien et on crée un tableau d'observables pour chaque bien
+        const biensAvecLocalisation$ = biens.map(bien => {
+          const photos$ = this.photoService.getPhotosByBienId(bien.id!).pipe(
+            map(photos => ({...bien, photos}))
+            // permet de créer un nouvel objet avec toutes les propriétés du bien + photos
+          );
+
+          const localisation$ = typeof bien.localisation === 'string' ?
+          // on vérifie si bien.localisation est une string (IRI)
+          this.localisationService.getLocalisationByIri(bien.localisation)
+          // on appelle la méthode getLocalisationByIri pour récupérer l'objet Localisation
+          : new Observable<Localisation>(observer => {
+            // si c'est déjà un objet on crée un observable pour émettre l'objet
+            observer.next(bien.localisation as Localisation);
+            observer.complete();
+          });
+          return forkJoin({bienAvecPhotos: photos$, localisation: localisation$}).pipe(
+            // on récupère les résultat des observables
+            map(({bienAvecPhotos, localisation}) => ({
+              // on crée un nouvel objet bien avec les photos et la localisation
+              ...bienAvecPhotos,
+              localisation
             }))
-          )
-        );
-        //combine plusieurs observables et émet un tableau contenant tous les résultats
-        return forkJoin(biensAvecPhotos$);
+          );
+        });
+        return forkJoin(biensAvecLocalisation$);
       })
     );
   }
+ 
+  
 }
