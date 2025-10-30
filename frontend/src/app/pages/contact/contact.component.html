@@ -1,0 +1,10 @@
+<div class="container__contact">
+    <form [formGroup]="form" class="contact__form">
+        <h3>Contacter</h3>
+        <input type="text" formControlName="nom" placeholder="Nom">
+        <input type="email" formControlName="email" placeholder="Email">
+        <input type="text" formControlName="sujet" placeholder="Sujet">
+        <textarea formControlName="message" placeholder="Message"></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
+</div>
