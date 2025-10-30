@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { Photo, PhotoService } from './photo.service';
@@ -56,6 +56,31 @@ export class BienService {
       map(response => response['member']),
       //switchMap permet de transformer l'observable de biens pour le transformer 
       // en un autre observable de biens avec photos.
+      switchMap((biens: Bien[]) => {
+        // création d'un tableau d'Observables
+        // $ indique un tableau d'Observables
+        const biensAvecPhotos$ = biens.map(bien => 
+          // this.photoService.getPhotosByBienId(bien.id!) pour chaque bien on crée un Observable qui va récupérer ses photos
+          // ! -> indique que id n'est jamais null
+          this.photoService.getPhotosByBienId(bien.id!).pipe(
+            map(photos => ({
+              // copie toutes les propriétés du bien
+              ...bien,
+              //ajoute le tableau de photos récupéré
+              photos
+            }))
+          )
+        );
+        //combine plusieurs observables et émet un tableau contenant tous les résultats
+        return forkJoin(biensAvecPhotos$);
+      })
+    );
+  }
+
+  getBiensEnLocation(): Observable<Bien[]>{
+    return this.http.get<any>(this.api).pipe(
+      map(response => response['member']),
+      map((biens: Bien[]) => biens.filter(bien => bien.statut === 'location')),
       switchMap((biens: Bien[]) => {
         // création d'un tableau d'Observables
         // $ indique un tableau d'Observables

@@ -1,1 +1,176 @@
+<div class="container__location">
+    <div class="barre__filtres">
+        <form class="form__filtres">
+            <!-- Bouton filtre mobile -->
+            <button type="button" class="btn__filtre__mobile" (click)="toggleModalFiltres()">
+                Filtre
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 8L8 12L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
 
+            <!-- Filtres desktop (visibles uniquement sur grand écran) -->
+            <div class="recherche__wrapper">
+                <input type="text" class="barre__recherche" placeholder="Ville, code postal...">
+                <button type="button" class="btn__recherche">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12.5 12.5L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="filtre__groupe">
+                <select class="filtre__select">
+                    <option value="">Type</option>
+                    <option value="appartement">Appartement</option>
+                    <option value="maison">Maison</option>
+                    <option value="studio">Studio</option>
+                </select>
+            </div>
+
+            <div class="filtre__groupe">
+                <select class="filtre__select">
+                    <option value="">Prix</option>
+                    <option value="0-500">0 - 500€</option>
+                    <option value="500-1000">500 - 1000€</option>
+                    <option value="1000-1500">1000 - 1500€</option>
+                    <option value="1500+">1500€+</option>
+                </select>
+            </div>
+
+            <div class="filtre__groupe">
+                <select class="filtre__select">
+                    <option value="">Surface</option>
+                    <option value="0-30">0 - 30m²</option>
+                    <option value="30-50">30 - 50m²</option>
+                    <option value="50-80">50 - 80m²</option>
+                    <option value="80+">80m²+</option>
+                </select>
+            </div>
+
+            <div class="filtre__groupe">
+                <select class="filtre__select">
+                    <option value="">Chambre</option>
+                    <option value="1">1 chambre</option>
+                    <option value="2">2 chambres</option>
+                    <option value="3">3 chambres</option>
+                    <option value="4+">4+ chambres</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal filtres mobile -->
+    <div class="modal__filtres" [class.active]="isModalOpen" (click)="closeModalOnBackdrop($event)">
+        <div class="modal__content" (click)="$event.stopPropagation()">
+            <div class="modal__header">
+                <h3>Filtres</h3>
+                <button type="button" class="btn__fermer" (click)="closeModalFiltres()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <div class="filtre__section">
+                    <label>Localisation</label>
+                    <input type="text" class="filtre__input" placeholder="Ville, code postal..." [(ngModel)]="filtres.localisation" name="localisation">
+                </div>
+
+                <div class="filtre__section">
+                    <label>Type</label>
+                    <select class="filtre__input" [(ngModel)]="filtres.type" name="type">
+                        <option value="">Tous</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="maison">Maison</option>
+                        <option value="studio">Studio</option>
+                    </select>
+                </div>
+
+                <div class="filtre__section">
+                    <label>Prix</label>
+                    <select class="filtre__input" [(ngModel)]="filtres.prix" name="prix">
+                        <option value="">Tous</option>
+                        <option value="0-500">0 - 500€</option>
+                        <option value="500-1000">500 - 1000€</option>
+                        <option value="1000-1500">1000 - 1500€</option>
+                        <option value="1500+">1500€+</option>
+                    </select>
+                </div>
+
+                <div class="filtre__section">
+                    <label>Surface</label>
+                    <select class="filtre__input" [(ngModel)]="filtres.surface" name="surface">
+                        <option value="">Tous</option>
+                        <option value="0-30">0 - 30m²</option>
+                        <option value="30-50">30 - 50m²</option>
+                        <option value="50-80">50 - 80m²</option>
+                        <option value="80+">80m²+</option>
+                    </select>
+                </div>
+
+                <div class="filtre__section">
+                    <label>Nombre de chambres</label>
+                    <select class="filtre__input" [(ngModel)]="filtres.chambres" name="chambres">
+                        <option value="">Tous</option>
+                        <option value="1">1 chambre</option>
+                        <option value="2">2 chambres</option>
+                        <option value="3">3 chambres</option>
+                        <option value="4+">4+ chambres</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn__reinitialiser" (click)="reinitialiserFiltres()">Réinitialiser</button>
+                <button type="button" class="btn__appliquer" (click)="appliquerFiltres()">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="annonces">
+        <div class="carte" *ngFor="let bien of biensAffiches">
+            <div class="carte__img">
+                <img [src]="bien.photos?.[0]?.urlPhoto" alt="Image du bien {{bien.nom}}" class="img__bien">
+                <div class="type__bien">{{ bien.typeDeBien }}</div>
+            </div>
+            <div class="carte__info">
+                <p>{{ bien.nom }}</p>
+                <div class="info__details">
+                    <p><img src="/bed.png" alt="chambres"> {{ bien.nbChambre }}</p>
+                    <p><img src="/arrows.png" alt="surface"> {{ bien.surface }}</p>
+                </div>
+                <p>{{ bien.prix }} €</p>
+            </div>
+        </div>
+
+        <div class="aucun__bien" *ngIf="biensAffiches.length === 0">
+            <p>Aucun bien ne correspond à vos critères de recherche.</p>
+        </div>
+    </section>
+    <div class="pagination" *ngIf="nombrePages > 1">
+        <button 
+            class="pagination__btn" 
+            (click)="pagePrecedente()" 
+            [disabled]="pageActuelle === 1">
+            ← Précédent
+        </button>
+
+        <div class="pagination__pages">
+            <button 
+                *ngFor="let page of pages" 
+                class="pagination__page" 
+                [class.active]="page === pageActuelle"
+                (click)="afficherPage(page)">
+                {{ page }}
+            </button>
+        </div>
+
+        <button 
+            class="pagination__btn" 
+            (click)="pageSuivante()" 
+            [disabled]="pageActuelle === nombrePages">
+            Suivant →
+        </button>
+    </div>
+</div>
