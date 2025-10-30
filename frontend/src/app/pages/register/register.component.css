@@ -26,6 +26,12 @@
     font-size: 1.5rem;
     font-weight: 600;
   }
+
+  .champ__nom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
   
   /* Inputs */
   .inscription__form input, .inscription__form select{
@@ -95,6 +101,11 @@
     .inscription__form button {
       padding: 1.25rem;
       font-size: 1.1rem;
+    }
+
+    .champ__nom {
+      flex-direction: row;
+      gap: 1rem;
     }
   }
   

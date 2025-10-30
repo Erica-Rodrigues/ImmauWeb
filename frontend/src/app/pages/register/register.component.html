@@ -1,8 +1,10 @@
 <div class="container__inscription">
     <form [formGroup]="form" class="inscription__form">
         <h3>Créer un compte</h3>
-        <input type="text" formControlName="nom" placeholder="Nom">
-        <input type="text" formControlName="prenom" placeholder="Prenom">
+        <div class="champ__nom">
+            <input type="text" formControlName="nom" placeholder="Nom">
+            <input type="text" formControlName="prenom" placeholder="Prenom">
+        </div>
         <input type="email" formControlName="email" placeholder="Email">
         <input type="password" formControlName="password" placeholder="Mot de passe">
         <select formControlName="type">
