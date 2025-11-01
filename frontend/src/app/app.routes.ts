@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { LocationComponent } from './pages/location/location.component';
 import { VenteComponent } from './pages/vente/vente.component';
+import { ProfilComponent } from './pages/profil/profil.component';
 
 export const routes: Routes = [
     {path:'', redirectTo:'accueil',pathMatch:'full'},
@@ -14,4 +15,5 @@ export const routes: Routes = [
     {path: 'contact', component:ContactComponent},
     {path: 'location', component:LocationComponent},
     {path: 'vente', component:VenteComponent},
+    {path: 'profil', component:ProfilComponent},
 ];

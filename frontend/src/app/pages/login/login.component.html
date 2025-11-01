@@ -1,9 +1,10 @@
 <div class="container__login">
-    <form [formGroup]="form" class="login__form">
+    <form [formGroup]="form" class="login__form" (ngSubmit)="onSubmit()">
         <h3>Login</h3>
         <input type="email" formControlName="email" placeholder="Email">
         <input type="password" formControlName="password" placeholder="Mot de passe">
         <a href="#" class="mdpOublie">Mot de passe oublié ?</a>
         <button type="submit">Se connecter</button>
     </form>
+    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
 </div>

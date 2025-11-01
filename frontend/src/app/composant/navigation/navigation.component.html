@@ -15,7 +15,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/vente">Vente</a></li>
-              <li><a class="dropdown-item" href="#">Créer annonce</a></li>
+              <li><a class="dropdown-item" href="#" *ngIf="isLoggedIn()">Créer annonce</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -24,19 +24,19 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/contact">Contact</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn()">
             <a class="nav-link active" aria-current="page" href="#">Profil</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item"*ngIf="!isLoggedIn()">
                 <a class="nav-link active" aria-current="page" routerLink="/login">Login</a>
             </li>
-            <li class="nav-item inscription">
+            <li class="nav-item inscription" *ngIf="!isLoggedIn()">
                 <a class="nav-link active" aria-current="page" routerLink="/register">Inscription</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Logout</a>
+            <li class="nav-item" *ngIf="isLoggedIn()">
+                <a class="nav-link active" aria-current="page" href="#" (click)="logout()">Logout</a>
             </li>
         </ul>
       </div>
