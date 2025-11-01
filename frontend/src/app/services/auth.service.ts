@@ -7,6 +7,7 @@ import { tap } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'https://127.0.0.1:8000/api/login_check';
+  private apiRegister = 'https://127.0.0.1:8000/api/register';
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,12 @@ export class AuthService {
       return true
     }
     return false;
+  }
+
+  register(email: string, password: string, nom: string, prenom: string, type: string) {
+    return this.http.post<{ message: string }>(
+      `${this.apiRegister}`, { email, password, nom, prenom, type}
+    );
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="container__inscription">
-    <form [formGroup]="form" class="inscription__form">
+    <form [formGroup]="form" class="inscription__form" (ngSubmit)="onSubmit()">
         <h3>Créer un compte</h3>
         <div class="champ__nom">
             <input type="text" formControlName="nom" placeholder="Nom">
