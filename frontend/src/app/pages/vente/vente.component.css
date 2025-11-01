@@ -1,9 +1,7 @@
-.container__location {
+.container__vente {
     width: 100%;
     padding: 1rem;
     background-color: #2F2F2F;
-    position: relative;
-    z-index: 1;
 }
 
 .barre__filtres {
