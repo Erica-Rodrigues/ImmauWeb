@@ -6,6 +6,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { LocationComponent } from './pages/location/location.component';
 import { VenteComponent } from './pages/vente/vente.component';
 import { ProfilComponent } from './pages/profil/profil.component';
+import { CreerAnnonceComponent } from './pages/creer-annonce/creer-annonce.component';
 
 export const routes: Routes = [
     {path:'', redirectTo:'accueil',pathMatch:'full'},
@@ -16,4 +17,5 @@ export const routes: Routes = [
     {path: 'location', component:LocationComponent},
     {path: 'vente', component:VenteComponent},
     {path: 'profil', component:ProfilComponent},
+    {path: 'creerAnnonce', component: CreerAnnonceComponent},
 ];

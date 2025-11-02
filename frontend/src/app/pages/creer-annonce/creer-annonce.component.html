@@ -1,0 +1,29 @@
+<div class="container__creer__annonce">
+    <form [formGroup]="form" class="creer-annonce__form" (ngSubmit)="onSubmit()">
+        <h3>Créer une annonce</h3>
+        <input type="text" formControlName="nom" placeholder="Nom">
+        <select formControlName="type">
+            <option value="">Type</option>
+            <option value="appartement">Appartement</option>
+            <option value="maison">Maison</option>
+            <option value="studio">Studio</option>
+        </select>
+        <input type="number" formControlName="prix" placeholder="Prix">
+        <input type="number" formControlName="surface" placeholder="Surface">
+        <input type="number" formControlName="chambres" placeholder="Chambres">
+        <input type="text" formControlName="rue" placeholder="Rue">
+        <input type="date" formControlName="disponibilite" placeholder="Disponibilité">
+        <select formControlName="statut">
+            <option value="">Statut</option>
+            <option value="vente">Vente</option>
+            <option value="location">Location</option>
+        </select>
+        <input type="text" formControlName="nomLocalite" placeholder="Nom localite">
+        <input type="text" formControlName="codePostal" placeholder="Code postal">
+        <input type="text" formControlName="ville" placeholder="Ville">
+        <input type="text" formControlName="pays" placeholder="Pays">
+        <textarea formControlName="description" placeholder="Description"></textarea>
+        <input type="file" accept="image/*" multiple (change)="onFileSelected($event)">
+        <button type="submit">Créer</button>
+    </form>
+</div>

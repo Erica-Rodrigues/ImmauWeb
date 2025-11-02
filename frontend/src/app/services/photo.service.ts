@@ -20,4 +20,15 @@ export class PhotoService {
       map(response => response['member'])
     );
   }
+
+  uploadPhoto(file: File, bienId?: number): Observable<Photo> {
+    const formData = new FormData();
+    formData.append('imageFile', file);
+
+    if (bienId) {
+      formData.append('bien', `/api/biens/${bienId}`);
+    }
+
+    return this.http.post<Photo>(this.api, formData);
+  }
 }

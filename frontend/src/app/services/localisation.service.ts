@@ -21,4 +21,13 @@ export class LocalisationService {
   getLocalisationByIri(iri: string): Observable<Localisation>{
     return this.http.get<any>(`${this.api}${iri}`)
   }
+
+  createLocalisation(localisation: Localisation): Observable<Localisation> {
+    const token = localStorage.getItem('token');
+    const headers = { 
+      'Content-Type': 'application/ld+json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.http.post<Localisation>(`${this.api}/api/localisations`, localisation, { headers });
+  }
 }

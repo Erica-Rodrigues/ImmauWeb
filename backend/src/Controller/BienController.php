@@ -16,14 +16,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class BienController extends AbstractController
 {
-    #[Route('/bien', name: 'app_bien',methods:['GET'])]
-    public function index(BienRepository $bienRepo): JsonResponse
-    {
-        $biens = $bienRepo->findAll();
-        return $this->json($biens);
-    }
+    // #[Route('/bien', name: 'app_bien',methods:['GET'])]
+    // public function index(BienRepository $bienRepo): JsonResponse
+    // {
+    //     $biens = $bienRepo->findAll();
+    //     return $this->json($biens);
+    // }
 
-    #[Route('', methods: ['POST'])]
+    #[Route('/bien', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         //transforme le JSON en tableau associatif
@@ -36,6 +36,7 @@ final class BienController extends AbstractController
                 return $this->json(['error' => "Le champ '$field' est requis"], 400);
             }
         }
+
 
         // Récupérer user connecté
         /**

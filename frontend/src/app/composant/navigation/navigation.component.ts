@@ -19,7 +19,6 @@ export class NavigationComponent {
 
   isLoggedIn(): boolean {
     const logged = this.authService.isLoggedIn();
-    console.log('isLoggedIn():', logged);
     return this.authService.isLoggedIn();
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
 import { Photo, PhotoService } from './photo.service';
 import { Localisation, LocalisationService } from './localisation.service';
 
@@ -147,6 +147,37 @@ export class BienService {
       })
     );
   }
- 
+
+  // createBien(bien: Bien): Observable<Bien> {
+  //   const token = localStorage.getItem('token');
+  //   if(!token){
+  //     console.log('token manquant');
+  //   }
+  //   const headers = {
+  //     'Content-Type': 'application/ld+json',
+  //     'Authorization': `Bearer ${token}`
+  //   };
+
+  //   // Préparer le payload JSON
+  //   const payload: any = {
+  //     nom: bien.nom,
+  //     typeDeBien: bien.typeDeBien,
+  //     prix: bien.prix,
+  //     surface: bien.surface,
+  //     nbChambre: bien.nbChambre,
+  //     rue: bien.rue,
+  //     description: bien.description,
+  //     disponibilite: bien.disponibilite,
+  //     statut: bien.statut,
+  //     localisation: typeof bien.localisation === 'object' ? bien.localisation.id : bien.localisation,
+  //   };
+
+  //   console.log(payload);
+  //   console.log(headers);
+
+  //   // POST JSON vers le backend
+  //   return this.http.post<Bien>('https://127.0.0.1:8000/bien', payload, { headers });
+  // }
+  
   
 }

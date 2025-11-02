@@ -34,7 +34,7 @@ class Contact
     use Sendable;
 
     #[ORM\Column]
-    private ?bool $traite = null;
+    private ?bool $traite = false;
 
     #[ORM\ManyToOne(inversedBy: 'contacts')]
     private ?User $user = null;
